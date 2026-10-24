@@ -8,10 +8,12 @@ import (
 
 // RunAltScreen enters alt screen and runs non-interactive loop with prompt.
 func RunAltScreen(r io.Reader, w io.Writer) error {
-	fmt.Fprint(w, "\x1b[?1049h\x1b[H")
+	fmt.Fprint(w, "\x1b[?1049h\x1b[2J\x1b[H")
 	fmt.Fprintln(w, "┌─ harnas ─────────────────────────────┐")
 	fmt.Fprintln(w, "│  OpenCode-style TUI (look & feel)     │")
 	fmt.Fprintln(w, "└──────────────────────────────────────┘")
+	// Reserve bottom line for input.
+	fmt.Fprint(w, "\x1b[999;1H")
 	defer fmt.Fprint(w, "\x1b[?1049l")
 	return RunNonInteractive(r, w)
 }
