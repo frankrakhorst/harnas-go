@@ -2,7 +2,9 @@ package cli
 
 import (
 	"fmt"
+	"os"
 
+	"github.com/frankrakhorst/harnas-go/internal/tui"
 	"github.com/frankrakhorst/harnas-go/pkg/config"
 	"github.com/spf13/cobra"
 )
@@ -46,12 +48,23 @@ var configCmd = &cobra.Command{
 	},
 }
 
+var tuiCmd = &cobra.Command{
+	Use:   "tui",
+	Short: "Run interactive TUI (non-interactive fallback)",
+	RunE: func(cmd *cobra.Command, args []string) error {
+		return tui.RunAltScreen(os.Stdin, os.Stdout)
+	},
+}
+
 func init() {
-	rootCmd.AddCommand(versionCmd, runCmd, configCmd)
+	rootCmd.AddCommand(versionCmd, runCmd, configCmd, tuiCmd)
 }
 
 // Run executes the CLI.
 func Run(args []string) error {
+	if len(args) == 0 {
+		return fmt.Errorf("usage: harnas <run|version|config>")
+	}
 	rootCmd.SetArgs(args)
 	return rootCmd.Execute()
 }

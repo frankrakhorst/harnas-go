@@ -13,3 +13,4 @@ A task/PR is done when all of the following hold:
 - [ ] README/CHANGELOG updated for user-facing changes.
 - [ ] Lint and tests green in CI before merge.
 - [ ] User approval obtained before commit/push.
+- [ ] Pull request merged to main.
