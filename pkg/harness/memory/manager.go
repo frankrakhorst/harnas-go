@@ -57,7 +57,7 @@ func (m *Manager) Messages() []Message {
 
 func (m *Manager) trim(ctx context.Context) error {
 	// Sliding window: summarize oldest when exceeding window.
-	for len(m.messages) > m.window && m.summarizer != nil {
+	if len(m.messages) > m.window && m.summarizer != nil {
 		cut := len(m.messages) - m.window
 		if cut < 1 {
 			cut = 1
@@ -67,9 +67,6 @@ func (m *Manager) trim(ctx context.Context) error {
 			return err
 		}
 		m.messages = append([]Message{summary}, m.messages[cut:]...)
-		if len(m.messages) <= m.window {
-			break
-		}
 	}
 	// Token budget enforcement.
 	for m.budget > 0 && m.totalTokens() > m.budget && len(m.messages) > 1 {
