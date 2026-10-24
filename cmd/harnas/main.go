@@ -1,7 +1,15 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+
+	"github.com/frankrakhorst/harnas-go/internal/cli"
+)
 
 func main() {
-	fmt.Println("harnas-go: AI harness")
+	if err := cli.Run(os.Args[1:]); err != nil {
+		fmt.Fprintln(os.Stderr, "error:", err)
+		os.Exit(1)
+	}
 }
