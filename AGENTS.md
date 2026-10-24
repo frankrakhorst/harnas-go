@@ -32,3 +32,7 @@
 - Make zero values useful; design for the zero value.
 - Avoid `init()` unless registration requires it.
 - Keep business logic out of transport/HTTP handlers.
+
+## Definition of Done
+
+See `docs/definition-of-done.md`.
