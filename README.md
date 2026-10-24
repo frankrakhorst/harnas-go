@@ -9,9 +9,11 @@ harnas-go provides the foundation for an AI harness built in Go, following best 
 ## Getting Started
 
 ```sh
-go mod init github.com/frankrakhorst/harnas-go
 go build ./...
 go test ./...
+go run ./cmd/harnas version
+go run ./cmd/harnas run
+go run ./cmd/harnas config
 ```
 
 ## Project Structure
