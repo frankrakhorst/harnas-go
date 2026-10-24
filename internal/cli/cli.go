@@ -1,11 +1,15 @@
 package cli
 
 import (
+	"context"
 	"fmt"
 	"os"
+	"os/signal"
+	"syscall"
 
 	"github.com/frankrakhorst/harnas-go/internal/tui"
 	"github.com/frankrakhorst/harnas-go/pkg/config"
+	"github.com/frankrakhorst/harnas-go/pkg/harness"
 	"github.com/spf13/cobra"
 )
 
@@ -52,7 +56,12 @@ var tuiCmd = &cobra.Command{
 	Use:   "tui",
 	Short: "Run interactive TUI (non-interactive fallback)",
 	RunE: func(cmd *cobra.Command, args []string) error {
-		return tui.RunAltScreen(os.Stdin, os.Stdout)
+		ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
+		defer stop()
+		runner := &harness.Runner{Model: func(ctx context.Context, prompt string) (string, error) {
+			return "echo: " + prompt, nil
+		}}
+		return tui.RunNonInteractiveWithHarness(ctx, os.Stdin, os.Stdout, runner)
 	},
 }
 
