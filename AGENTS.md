@@ -2,10 +2,9 @@
 
 ## Rules
 
-- Never modify AGENTS.md unless the user explicitly asks and confirms the change.
-- Work to be done is recorded in `todos/<ticket-key>.md` using Markdown checkboxes (`- [ ]`); mark items `- [x]` when done.
-- When all items of a todo are done, move the file to `todos/done/<ticket-key>.md`.
-- Branches are named `feature-<issue-key>-<description>`."
+- Branches are named `feature-<issue-key>-<description>`.
+- Always create new feature branches from the latest `main` (pull/rebase first).
+- Work to be done is always recorded in `todos/<ticket-key>.md`.
 - Commit and push must always be confirmed/approved by the user before executing.
 - Ask questions as soon as possible.
 - Put long-lasting tasks in the background.
